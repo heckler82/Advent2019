@@ -3,7 +3,7 @@ package com.foley.advent19.day01;
 import com.foley.advent19.AdventMaster;
 
 /**
- * Class description goes here
+ * Calculates required fuel
  *
  * @author Evan Foley
  * @version 01 Dec 2019
