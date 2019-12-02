@@ -28,9 +28,9 @@ public class IntCodeComputer extends AdventMaster {
         int noun = 33;
         int verb = 76;
 
-        // Prep values 1 and 2
-        opcodes[1] = noun;
-        opcodes[2] = verb;
+        // Prep the noun and verb
+        opcodes[1] = noun; // The noun increases the final value by 576,000
+        opcodes[2] = verb; // The verb increases the final value by 1
 
         int currentInstruction = 0;
         int pointer = 0;
