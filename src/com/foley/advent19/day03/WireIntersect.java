@@ -46,6 +46,12 @@ public class WireIntersect extends AdventMaster {
         System.out.printf("The fastest intersection occurs %d steps away\n", fastestIntersect);
     }
 
+    /**
+     * Gets all integer points along this polyline given a set of directions and distance
+     *
+     * @param input The set of distances and directions
+     * @return The integer points along the polyline
+     */
     private Map<Point, Integer> getLinePoints(String input) {
         Map<Point, Integer> map = new HashMap<>();
         int x = 0;
