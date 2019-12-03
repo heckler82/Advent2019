@@ -2,6 +2,7 @@ package com.foley.advent19;
 
 import com.foley.advent19.day01.RocketFuel;
 import com.foley.advent19.day02.IntCodeComputer;
+import com.foley.advent19.day03.WireIntersect;
 
 /**
  * Main entry-point for program
@@ -19,8 +20,12 @@ public class Driver {
         //new RocketFuel("/com/foley/advent19/day01/Day01.txt").run(timer);
 
         // Day 02
+        //System.out.println("Day 02");
+        //new IntCodeComputer("/com/foley/advent19/day02/Day02.txt").run(timer);
+
+        // Day 03
         System.out.println("Day 02");
-        new IntCodeComputer("/com/foley/advent19/day02/Day02.txt").run(timer);
+        new WireIntersect("/com/foley/advent19/day03/Day03.txt").run(timer);
 
         System.out.println();
         timer.printTotalTime(SimpleTimer.Units.SECONDS);
