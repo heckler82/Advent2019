@@ -4,7 +4,10 @@ import com.foley.advent19.day01.RocketFuel;
 import com.foley.advent19.day02.IntCodeComputer;
 import com.foley.advent19.day03.WireIntersect;
 import com.foley.advent19.day04.Password;
+import com.foley.advent19.day05.ImprovedIntCode;
 import com.foley.advent19.day06.Orbits;
+import com.foley.advent19.day07.Amplification;
+import com.foley.advent19.day08.SpaceImageFormat;
 
 /**
  * Main entry-point for program
@@ -22,8 +25,8 @@ public class Driver {
         //new RocketFuel("/com/foley/advent19/day01/Day01.txt").run(timer);
 
         // Day 02
-        //System.out.println("Day 02");
-        //new IntCodeComputer("/com/foley/advent19/day02/Day02.txt").run(timer);
+        System.out.println("Day 02");
+        new IntCodeComputer("/com/foley/advent19/day02/Day02.txt").run(timer);
 
         // Day 03
         //System.out.println("Day 02");
@@ -34,12 +37,20 @@ public class Driver {
         //new Password("/com/foley/advent19/day04/Day04.txt").run(timer);
 
         // Day 05
-        //System.out.println("Day 04");
-        //new Password("/com/foley/advent19/day04/Day04.txt").run(timer);
+        System.out.println("Day 05");
+        new ImprovedIntCode("/com/foley/advent19/day05/Day05.txt").run(timer);
 
         // Day 06
         //System.out.println("Day 06");
-        new Orbits("/com/foley/advent19/day06/Day06.txt").run(timer);
+        //new Orbits("/com/foley/advent19/day06/Day06.txt").run(timer);
+
+        // Day 07
+        //System.out.println("Day 07");
+        //new Amplification("/com/foley/advent19/day07/Day07.txt").run(timer);
+
+        // Day 08
+        //System.out.println("Day 08");
+        //new SpaceImageFormat("/com/foley/advent19/day08/Day08.txt").run(timer);
 
         System.out.println();
         timer.printTotalTime(SimpleTimer.Units.SECONDS);

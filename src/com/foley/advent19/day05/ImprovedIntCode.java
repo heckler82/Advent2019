@@ -1,8 +1,10 @@
-package com.foley.advent19.day02;
+package com.foley.advent19.day05;
 
 import com.foley.advent19.AdventMaster;
 import com.foley.util.Formatting;
 import com.foley.util.IntCode;
+
+import java.util.Scanner;
 
 /**
  * Rebuilds the ship's computer
@@ -10,13 +12,14 @@ import com.foley.util.IntCode;
  * @author Evan Foley
  * @version 02 Dec 2019
  */
-public class IntCodeComputer extends AdventMaster {
+public class ImprovedIntCode extends AdventMaster {
+
     /**
      * Creates a new intcode computer
      *
      * @param fileName The name of the input file
      */
-    public IntCodeComputer(String fileName) {
+    public ImprovedIntCode(String fileName) {
         super(fileName);
     }
 
@@ -26,11 +29,8 @@ public class IntCodeComputer extends AdventMaster {
      */
     protected void task() {
         IntCode computer = new IntCode(Formatting.convertToIntArray(input[0].split(",")));
-        computer.setMemoryValue(1, 33);
-        computer.setMemoryValue(2, 76);
-
+        computer.setInput(5);
         computer.run();
-        System.out.printf("The value at position 0 is %d\n", computer.getFromMemory(0));
-        System.out.printf("noun is %d and verb is %d; final answer is %d\n", 33, 76, 100 * 33 + 76);
+        System.out.printf("The output value is %d\n", computer.getOutput());
     }
 }
