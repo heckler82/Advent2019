@@ -3,6 +3,9 @@ package com.foley.advent19.day08;
 import com.foley.advent19.AdventMaster;
 import com.foley.util.Formatting;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 /**
@@ -85,14 +88,24 @@ public class SpaceImageFormat extends AdventMaster {
         }
         // Output
         System.out.printf("The answer is %d\n", ans);
+        int scale = 30;
+        BufferedImage img = new BufferedImage(scale * (width + 2), scale * (height + 2), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = img.createGraphics();
         for(int y = 0; y < image.length; y++) {
             for(int x = 0; x < image[y].length; x++) {
                 int val = image[y][x];
+                g.setColor(val == 0 ? Color.BLACK : Color.WHITE);
+                g.fillRect((x + 1) * scale, (y + 1) * scale, scale, scale);
                 System.out.print((val == 0 ? ' ' : '#') + " ");
-                //System.out.print(image[y][x] + " ");
             }
             System.out.println();
         }
+        g.dispose();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SimpleImageDisplay sid = new SimpleImageDisplay(img, "Advent of Code 2019 - Day 08");
+            }
+        });
     }
 
     /**
@@ -107,5 +120,34 @@ public class SpaceImageFormat extends AdventMaster {
             result[i] = stream.charAt(i) - 48;
         }
         return result;
+    }
+
+    /**
+     * Displays an image in a frame
+     */
+    class SimpleImageDisplay {
+        JFrame frame;
+
+        /**
+         * Creates a new image display
+         *
+         * @param img The image to display
+         * @param titleString The title to display
+         */
+        public SimpleImageDisplay(Image img, String titleString) {
+            // Create the display window
+            frame = new JFrame(titleString);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setBackground(Color.BLACK);
+            // Set image to label icon and add to frame
+            ImageIcon icon = new ImageIcon(img);
+            JLabel jLabel = new JLabel();
+            jLabel.setIcon(icon);
+            frame.getContentPane().add(jLabel, BorderLayout.CENTER);
+            // Pack and display frame
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        }
     }
 }
