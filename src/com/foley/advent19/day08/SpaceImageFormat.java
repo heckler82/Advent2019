@@ -1,7 +1,6 @@
 package com.foley.advent19.day08;
 
 import com.foley.advent19.AdventMaster;
-import com.foley.util.Formatting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,7 +88,7 @@ public class SpaceImageFormat extends AdventMaster {
         // Output
         System.out.printf("The answer is %d\n", ans);
         int scale = 30;
-        BufferedImage img = new BufferedImage(scale * (width + 2), scale * (height + 2), BufferedImage.TYPE_INT_RGB);
+        BufferedImage img = new BufferedImage(scale * (width + 1), scale * (height + 2), BufferedImage.TYPE_INT_RGB);
         Graphics2D g = img.createGraphics();
         for(int y = 0; y < image.length; y++) {
             for(int x = 0; x < image[y].length; x++) {
@@ -127,6 +126,15 @@ public class SpaceImageFormat extends AdventMaster {
      */
     class SimpleImageDisplay {
         JFrame frame;
+
+        /**
+         * Creates a new image display
+         *
+         * @param img The image to display
+         */
+        public SimpleImageDisplay(Image img) {
+            this(img, "Simple Image Display 1.0");
+        }
 
         /**
          * Creates a new image display
