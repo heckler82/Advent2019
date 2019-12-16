@@ -27,7 +27,6 @@ public class AsteroidWatch extends AdventMaster {
      */
     protected void task() {
         Map<Integer, Point> asteroids = new HashMap<>();
-        Map<Integer, Set<Double>> inView = new HashMap<>();
         Map<Integer, Map<Double, Stack<Integer>>> astList = new HashMap<>();
 
         int id = 0;
@@ -38,7 +37,6 @@ public class AsteroidWatch extends AdventMaster {
                 if(str.charAt(x) == '#') {
                    Point p = new Point(x, y);
                    asteroids.put(id, p);
-                   inView.put(id, new HashSet<>());
                    astList.put(id++, new HashMap<>());
                 }
             }
@@ -60,8 +58,6 @@ public class AsteroidWatch extends AdventMaster {
                     // Get the angle between the two asteroids, and clamp to 0 - 360
                     double angle = Math.toDegrees(Math.atan2(p2.y - p.y, p2.x - p.x));
                     angle = angle + Math.ceil(-angle / 360) * 360;
-                    // Add to the list of asteroids in view (will not add if another asteroid on this angle already exists)
-                    inView.get(i).add(angle);
                     // Place the asteroid into the list of those that are seen by the current location
                     if(astList.get(i).get(angle) == null) {
                         astList.get(i).put(angle, new Stack<>());
@@ -70,8 +66,8 @@ public class AsteroidWatch extends AdventMaster {
                 }
             }
             // Determine if this asteroid can see more than the current max, and update if so
-            if(inView.get(i).size() > mostSeen) {
-                mostSeen = inView.get(i).size();
+            if(astList.get(i).keySet().size() > mostSeen) {
+                mostSeen = astList.get(i).keySet().size();
                 bestLocation = i;
             }
         }
