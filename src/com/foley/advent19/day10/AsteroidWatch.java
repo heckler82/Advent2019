@@ -57,7 +57,9 @@ public class AsteroidWatch extends AdventMaster {
                     Point p2 = asteroids.get(j);
                     // Get the angle between the two asteroids, and clamp to 0 - 360
                     double angle = Math.toDegrees(Math.atan2(p2.y - p.y, p2.x - p.x));
-                    angle = angle + Math.ceil(-angle / 360) * 360;
+                    if(angle < 0) {
+                        angle += 360.0;
+                    }
                     // Place the asteroid into the list of those that are seen by the current location
                     if(astList.get(i).get(angle) == null) {
                         astList.get(i).put(angle, new Stack<>());
