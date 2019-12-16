@@ -77,7 +77,7 @@ public class AsteroidWatch extends AdventMaster {
         List<Double> angles = new ArrayList<>(bestCanSee.keySet());
         Collections.sort(angles);
 
-        lastVaporized = bestCanSee.get(angles.get(200)).pop();
+        lastVaporized = bestCanSee.get(angles.get(199)).pop();
 
         /**
 
