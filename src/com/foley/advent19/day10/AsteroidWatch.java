@@ -27,7 +27,7 @@ public class AsteroidWatch extends AdventMaster {
      */
     protected void task() {
         Map<Integer, Point> asteroids = new HashMap<>();
-        Map<Integer, Map<Double, Stack<Integer>>> astList = new HashMap<>();
+        Map<Integer, Map<Double, Integer>> astList = new HashMap<>();
 
         int id = 0;
         int y = 0;
@@ -37,7 +37,8 @@ public class AsteroidWatch extends AdventMaster {
                 if(str.charAt(x) == '#') {
                    Point p = new Point(x, y);
                    asteroids.put(id, p);
-                   astList.put(id++, new HashMap<>());
+                   astList.put(id, new HashMap<>());
+                   id++;
                 }
             }
             // Increase the y value
@@ -46,23 +47,35 @@ public class AsteroidWatch extends AdventMaster {
 
         // Find out how many other asteroids an asteroid can see, and store the most
         int mostSeen = Integer.MIN_VALUE;
-        int lastVaporized = -1;
         int bestLocation = -1;
         for(int i : asteroids.keySet()) {
             Point p = asteroids.get(i);
             // Check all other asteroids
             for(int j : asteroids.keySet()) {
                 // Do not check against self
-                if(i != j) {
+                if(j != i) {
                     Point p2 = asteroids.get(j);
                     // Get the angle between the two asteroids, and clamp to 0 - 360
-                    double angle = Math.toDegrees(Math.atan2(p2.y - p.y, p2.x - p.x));
-                    angle = angle + Math.ceil(-angle / 360) * 360;
-                    // Place the asteroid into the list of those that are seen by the current location
-                    if(astList.get(i).get(angle) == null) {
-                        astList.get(i).put(angle, new Stack<>());
+                    double rads = Math.atan2(p2.x - p.x, p.y - p2.y);
+                    double angle = Math.toDegrees(rads);
+                    if(angle < 0) {
+                        angle += 360;
                     }
-                    astList.get(i).get(angle).push(j);
+                    // Place the asteroid by angle if the angle doesn't already have one, otherwise take the closer asteroid
+                    if(!astList.get(i).containsKey(angle)) {
+                        astList.get(i).put(angle, j);
+                    } else {
+                        int ast = astList.get(i).get(angle);
+                        Point a = asteroids.get(ast);
+                        if(p.x == 11 && p.y == 13 && p2.x == 11 && p2.y == 12) {
+                            int test = 0;
+                        }
+                        int distSq = ((a.x - p.x) * (a.x - p.x)) + ((a.y - p.y) * (a.y - p.y));
+                        int myDistSq = ((p2.x - p.x) * (p2.x - p.x)) + ((p2.y - p.y) * (p2.y - p.y));
+                        if(myDistSq < distSq) {
+                            astList.get(i).replace(angle, j);
+                        }
+                    }
                 }
             }
             // Determine if this asteroid can see more than the current max, and update if so
@@ -72,28 +85,13 @@ public class AsteroidWatch extends AdventMaster {
             }
         }
         // Get the angles and asteroids the best location can see
-        Map<Double, Stack<Integer>> bestCanSee = astList.get(bestLocation);
+        Map<Double, Integer> bestCanSee = astList.get(bestLocation);
         // Get the angles and sort them from smallest to largest
         List<Double> angles = new ArrayList<>(bestCanSee.keySet());
         Collections.sort(angles);
 
-        lastVaporized = bestCanSee.get(angles.get(199)).pop();
+        int lastVaporized = bestCanSee.get(angles.get(199));
 
-        /**
-
-        // Find out the 200th asteroid vaporized
-        int vaporized = 0;
-        int listIndex = 0;
-        // Continue to loop until 200 asteroids have been vaporized
-        while(vaporized < 200) {
-            // If there are asteroids along this angle kill it
-            if(!bestCanSee.get(angles.get(listIndex)).isEmpty()) {
-                vaporized++;
-                lastVaporized = bestCanSee.get(angles.get(listIndex)).pop();
-            }
-            // Advance the list index
-            listIndex = (listIndex + 1) % angles.size();
-        }
         // Get the last asteroid that was vaporized*/
         Point p = asteroids.get(lastVaporized);
 
